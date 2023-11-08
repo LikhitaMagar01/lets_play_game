@@ -32,7 +32,7 @@ const NavBar = () => {
             <div>Blogs</div>
         </div>
         <div className='gap-x-4 hidden md:flex'>
-            <div className='cursor-pointer'>Sign In</div>
+            <Link href="/sign-in" className='cursor-pointer'>Sign In</Link>
             <Link href="/sign-up" className='flex gap-x-1 outline outline-offset-2 outline-1 cursor-pointer'><div>Sign Up</div><span className='animate-bounce'><AiOutlineArrowDown size={25} /></span></Link>
         </div>
     </nav>

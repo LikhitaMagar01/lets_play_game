@@ -1,77 +1,69 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { registerUser } from '@/lib/auth'
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import Link from 'next/link';
 
-const SignUpForm: React.FC = () => {
-    const router = useRouter()
-    const [username, setUsername] = useState<string>("")
-    const [email, setEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
-    const [error, setError] = useState<string>("")
 
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setUsername(e.target.value)
-    }
+const SignUpForm = () => {
+    const router = useRouter();
+    const [user, setUser] = React.useState({
+        email: "",
+        password: "",
+        username: "",
+    })
+    const [buttonDisabled, setButtonDisabled] = React.useState(false);
+    const [loading, setLoading] = React.useState(false)
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setPassword(e.target.value)
-    }
-
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setError(e.target.value)
-    }
-
-    const clearInputs = () => {
-        setEmail("");
-        setPassword("");
-        setError("");
-    }
-
-    interface RegistrationResponse {
-        status: number;
-        message: string;
-    }
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const onSignup = async () => {
         try {
-            const res = await registerUser(username, email, password) as RegistrationResponse;
-            if (res.status === 201) {
-                clearInputs();
-                const router = useRouter();
-                router.push('/sign-in');
-            } else {
-                setError(res.message);
-            }
-        } catch (e) {
-            console.error(e);
+            setLoading(true);
+            const response = await axios.post("/api/v1/users/signup", user);
+            console.log("Signup success", response.data);
+            router.push("/game");
+            
+        } catch (error:any) {
+            console.log("Signup failed", error.message);
+            
+            toast.error(error.message);
+        }finally {
+            setLoading(false);
         }
-    };
+    }
+
+    useEffect(() => {
+        if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+            setButtonDisabled(false);
+        } else {
+            setButtonDisabled(true);
+        }
+    }, [user]);
 
     return (<>
-        <form
-            onSubmit={handleSubmit} className="bg-grey-200 min-h-screen flex flex-col">
+        <div className="bg-grey-200 min-h-screen flex flex-col">
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">Sign up</h1>
                     <input
+                        value={user.username}
+                        onChange={(e) => setUser({...user, username: e.target.value})}
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="fullname"
                         placeholder="User Name" />
 
                     <input
-                        value={email}
-                        onChange={handleEmailChange}
+                        value={user.email}
+                        onChange={(e) => setUser({...user, email: e.target.value})}
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="email"
                         placeholder="Email" />
 
                     <input
-                        value={password}
-                        onChange={handlePasswordChange}
+                        value={user.password}
+                        onChange={(e) => setUser({...user, password: e.target.value})}
                         type="password"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="password"
@@ -84,7 +76,7 @@ const SignUpForm: React.FC = () => {
 
                     <button
                         type="submit"
-                        className="w-full text-center py-3 rounded bg-purple-900 text-white hover:bg-purple-900 focus:outline-none focus:bg-purple-900 my-1 cursor-pointer"
+                        className="w-full text-center py-3 rounded bg-purple-900 text-white hover:bg-purple-900 focus:outline-none focus:bg-purple-900 my-1 cursor-pointer" onClick={onSignup}
                     >Create Account</button>
 
                     <div className="text-center text-sm text-grey-dark mt-4">
@@ -99,12 +91,12 @@ const SignUpForm: React.FC = () => {
                 </div>
                 <div className="text-grey-dark mt-6">
                     Already have an account?
-                    <a className="no-underline border-b border-blue text-blue" href="/sign-in">
+                    <Link className="no-underline border-b border-blue text-blue" href="/sign-in">
                         Log in
-                    </a>.
+                    </Link>.
                 </div>
             </div>
-        </form>
+        </div>
     </>)
 }
 export default SignUpForm
