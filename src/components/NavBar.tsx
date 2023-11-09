@@ -26,10 +26,10 @@ const NavBar = () => {
             )
         }
         <div className='gap-x-8 hidden md:flex'>
-            <div>Home</div>
-            <div>About</div>
-            <div>Contact</div>
-            <div>Blogs</div>
+            <Link href={'/'}>Home</Link>
+            <Link href={'/game'}>Game</Link>
+            <Link href={'/'}>Contact</Link>
+            <Link href={'/'}>Blogs</Link>
         </div>
         <div className='gap-x-4 hidden md:flex'>
             <Link href="/sign-in" className='cursor-pointer'>Sign In</Link>
