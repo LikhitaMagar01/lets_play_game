@@ -21,7 +21,7 @@ const SignUpForm = () => {
             const response = await axios.post("/api/v1/users/login", user)
             console.log("login success", response.data)
             toast.success("Login success")
-            router.push('/game')
+            router.push('/profile/[aa]')
         }catch(error:any) {
             console.log("Login failed", error.message)
             toast.error(error.message)

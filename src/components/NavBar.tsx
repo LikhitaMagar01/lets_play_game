@@ -33,7 +33,7 @@ const NavBar = () => {
         </div>
         <div className='gap-x-4 hidden md:flex'>
             <Link href="/sign-in" className='cursor-pointer'>Sign In</Link>
-            <Link href="/sign-up" className='flex gap-x-1 outline outline-offset-2 outline-1 cursor-pointer'><div>Sign Up</div><span className='animate-bounce'><AiOutlineArrowDown size={25} /></span></Link>
+            <Link href="/sign-up" className='flex items-center p-2 gap-x-1 outline outline-offset-2 outline-1 cursor-pointer'><div>Sign Up</div><span className='animate-bounce'><AiOutlineArrowDown size={25} /></span></Link>
         </div>
     </nav>
 }
