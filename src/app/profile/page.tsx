@@ -1,7 +1,11 @@
 "use client"
+
+import NavBar from "@/components/NavBar"
+
 const Profile = () => {
     return (<>
-    profile page
+        <NavBar />
+        profile page
     </>)
 }
 export default Profile
