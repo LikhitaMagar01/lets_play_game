@@ -2,14 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { toast } from "react-hot-toast";
+import axios from 'axios';
 
 export default function MathProblem() {
     const [userAnswer, setUserAnswer] = useState('');
     const [apiAnswer, setApiAnswer] = useState('');
     const [imageSrc, setImageSrc] = useState('');
+    const [userId, setUserId] = useState();
 
     const fetchData = async () => {
         try {
+
+            const meResponse = await axios.get("/api/v1/me");
+            const userId = meResponse.data.user.id;
             const response = await fetch('https://marcconrad.com/uob/tomato/api.php', { method: 'GET' });
             const data = await response.json();
             if (!response.ok) {
@@ -21,16 +26,31 @@ export default function MathProblem() {
             const { question, solution } = data;
             setImageSrc(question);
             setApiAnswer(solution);
+            setUserId(userId)
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+    const incrementScore = async (userId: any) => {
+        try {
+            const response = await axios.post('/api/v1/scores', { userId });
+            if (response.status === 200) {
+                console.log('Score incremented successfully');
+            } else {
+                throw new Error(`Error incrementing score. status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error incrementing score:', error);
+        }
+    };
+
+
     useEffect(() => {
         fetchData();
     }, []);
 
-    const handleUserAnswer = () => {
+    const handleUserAnswer = async () => {
         const normalizedApiAnswer = apiAnswer?.toString().toLowerCase(); // Ensure apiAnswer is a string
 
         const isCorrect = userAnswer.toLowerCase() === normalizedApiAnswer;
@@ -38,7 +58,7 @@ export default function MathProblem() {
         if (isCorrect) {
             toast.success("Correct answer!")
             alert('correct answer')
-            fetchData()
+            incrementScore(userId)
             setUserAnswer('');
         } else {
             alert('Incorrect answer. Try again.');
