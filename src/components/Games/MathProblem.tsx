@@ -72,8 +72,8 @@ export default function MathProblem() {
     };
 
     return (
-        <div className="flex flex-col flex-wrap items-center gap-7">
-            <h1 className="text-2xl font-bold">Tomato Quiz</h1>
+        <div className='flex flex-col flex-wrap items-center gap-5 mt-6'>
+            <h1 className='text-2xl font-bold'>Tomato Quiz</h1>
             <h2>Fetch Data from API</h2>
 
             {loading ? (
