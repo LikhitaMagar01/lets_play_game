@@ -1,9 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast'
 
 
 const SignUpForm = () => {
@@ -21,11 +22,10 @@ const SignUpForm = () => {
             setLoading(true);
             const response = await axios.post("/api/v1/users/signup", user);
             console.log("Signup success", response.data);
-            router.push("/game");
+            toast.success("successfully sign up.")
+            router.push("/sign-in");
             
         } catch (error:any) {
-            console.log("Signup failed", error.message);
-            
             toast.error(error.message);
         }finally {
             setLoading(false);
@@ -96,6 +96,7 @@ const SignUpForm = () => {
                     </Link>.
                 </div>
             </div>
+            <Toaster/>
         </div>
     </>)
 }
