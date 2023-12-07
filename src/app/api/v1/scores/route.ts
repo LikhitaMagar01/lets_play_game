@@ -1,37 +1,25 @@
-// pages/api/scores.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+
 import { connect } from '@/dbConfig/dbConfig';
-import User from "@/models/userModel"
+import User from '@/models/userModel';
+import { NextRequest, NextResponse } from 'next/server';
 
 connect();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
-        try {
-            const { userId } = req.body;
+export async function PUT(request: NextRequest){
+    try {
 
-            // Validate input
-            if (!userId) {
-                return res.status(400).json({ error: 'Invalid input' });
-            }
+        const reqBody = await request.json()
+        const { userId } = reqBody;
 
-            // Find the user by userId
-            const userScore = await User.findOne({ userId });
-
-            if (!userScore) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            // Increment the score by 1
-            userScore.score += 1;
-            await userScore.save();
-
-            res.status(200).json({ message: 'Score incremented successfully' });
-        } catch (error) {
-            console.error('Error incrementing score:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+        const user = await User.findByIdAndUpdate(userId, { $inc: { score: 1 } }, { new: true });
+       
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
-    } else {
-        res.status(405).json({ error: 'Method Not Allowed' });
+        return NextResponse.json({ message: 'Score updated successfully', user }, { status: 200 });
+
+    } catch (error: any) {
+        return NextResponse.json({error: 'score not updated'}, {status: 500})
     }
 }
+
