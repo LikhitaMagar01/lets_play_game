@@ -38,15 +38,17 @@ const HighestScores: React.FC<{ user: User }> = ({ user }) => {
   }, []);
 
   return (
-    <div className="container mx-auto my-8">
+    <>
       <NavBar />
-      <h1 className="text-3xl font-bold mb-4">Highest Scorers</h1>
-      {users.length > 0 ? (
-        <UserList users={users} />
-      ) : (
-        <p className="text-gray-600">Loading highest scores...</p>
-      )}
-    </div>
+      <div className="container mx-auto my-8">
+        <h1 className="text-3xl font-bold mb-4">Highest Scorers</h1>
+        {users.length > 0 ? (
+          <UserList users={users} />
+        ) : (
+          <p className="text-gray-600">Loading highest scores...</p>
+        )}
+      </div>
+    </>
   );
 };
 
