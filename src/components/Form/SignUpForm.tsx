@@ -21,7 +21,12 @@ const SignUpForm = () => {
             setLoading(true);
             const response = await axios.post("/api/v1/users/signup", user);
             console.log("Signup success", response.data);
-            router.push("/game");
+            const loginResponse = await axios.post("/api/v1/users/login", user)
+            console.log("login success", loginResponse.data)
+            toast.success("Login success")
+            const meResponse = await axios.get("/api/v1/me");
+            const username = meResponse.data.user.username;
+            router.push(`/profile/${username}`)
             
         } catch (error:any) {
             console.log("Signup failed", error.message);

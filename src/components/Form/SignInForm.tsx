@@ -21,7 +21,9 @@ const SignUpForm = () => {
             const response = await axios.post("/api/v1/users/login", user)
             console.log("login success", response.data)
             toast.success("Login success")
-            router.push('/profile/[aa]')
+            const meResponse = await axios.get("/api/v1/me");
+            const username = meResponse.data.user.username;
+            router.push(`/profile/${username}`)
         }catch(error:any) {
             console.log("Login failed", error.message)
             toast.error(error.message)

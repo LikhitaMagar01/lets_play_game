@@ -18,9 +18,13 @@ const NavBar = () => {
         <PiHamburgerLight size={25} onClick={toggle} className='cursor-pointer md:hidden flex' />
         {
             isOpen && (<Drawer isOpen={isOpen} onClose={toggle}>
-                <div className='gap-x-4'>
-                    <div className='cursor-pointer'>Sign In</div>
+                <div className='flex flex-col gap-4 p-2'>
+                    <Link href="/sign-in" className='cursor-pointer'>Sign In</Link>
                     <Link href="/sign-up" className='flex gap-x-1 outline outline-offset-2 outline-1 cursor-pointer'><div>Sign Up</div><span className='animate-bounce'><AiOutlineArrowDown size={25} /></span></Link>
+                    <Link href={'/'}>Home</Link>
+                    <Link href={'/game'}>Game</Link>
+                    <Link href={'/'}>Contact</Link>
+                    <Link href={'/'}>Blogs</Link>
                 </div>
             </Drawer>
             )
