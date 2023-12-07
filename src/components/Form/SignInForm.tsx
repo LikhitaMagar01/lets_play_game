@@ -25,7 +25,9 @@ const SignUpForm: React.FC = () => {
       setLoading(true);
       const response = await axios.post('/api/v1/users/login', user);
       toast.success('Login success');
-      router.push('/profile/[aa]');
+      const meResponse = await axios.get("/api/v1/me");
+      const username = meResponse.data.user.username;
+      router.push(`/profile/${username}`)
     } catch (error: any) {
       toast.error(error.message);
     } finally {

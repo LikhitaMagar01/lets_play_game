@@ -54,7 +54,7 @@ export default function MathProblem() {
         fetchData();
     }, []);
 
-    const handleUserAnswer = () => {
+    const handleUserAnswer = async () => {
         const normalizedApiAnswer = apiAnswer?.toString().toLowerCase();
         const normalizedUserAnswer = userAnswer.toLowerCase();
 
@@ -62,7 +62,8 @@ export default function MathProblem() {
 
         if (isCorrect) {
             toast.success('Correct answer!');
-            incrementScore();
+            await incrementScore();
+            fetchData();
         } else {
             toast.error('Incorrect answer. Try again.');
         }
