@@ -23,8 +23,8 @@ const NavBar = () => {
                     <Link href="/sign-up" className='flex gap-x-1 outline outline-offset-2 outline-1 cursor-pointer'><div>Sign Up</div><span className='animate-bounce'><AiOutlineArrowDown size={25} /></span></Link>
                     <Link href={'/'}>Home</Link>
                     <Link href={'/game'}>Game</Link>
-                    <Link href={'/'}>Contact</Link>
-                    <Link href={'/'}>Blogs</Link>
+                    <Link href={'/rules'}>How to play</Link>
+                    <Link href={'/highest-score'}>Top Scorer</Link>
                 </div>
             </Drawer>
             )
@@ -32,8 +32,8 @@ const NavBar = () => {
         <div className='gap-x-8 hidden md:flex'>
             <Link href={'/'}>Home</Link>
             <Link href={'/game'}>Game</Link>
-            <Link href={'/'}>How to play</Link>
-            <Link href={'/'}>Top Scorer</Link>
+            <Link href={'/rules'}>How to play</Link>
+            <Link href={'/highest-score'}>Top Scorer</Link>
         </div>
         <div className='gap-x-4 hidden md:flex'>
             <Link href="/sign-in" className='cursor-pointer'>Sign In</Link>

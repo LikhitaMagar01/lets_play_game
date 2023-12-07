@@ -29,8 +29,7 @@ export default function MathProblem() {
             setImageSrc(question);
             setApiAnswer(solution);
         } catch (error) {
-            console.error('Error fetching data:', error);
-            toast.error('Error fetching data');
+            toast.error('Login Expires');
         } finally {
             setLoading(false);
         }

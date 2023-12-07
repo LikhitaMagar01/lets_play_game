@@ -51,11 +51,14 @@ const UserProfile: React.FC<{ user: User }> = ({ user }) => {
     return (
         <div>
             <NavBar />
-            <h1>User Profile</h1>
-            <p>ID: {userData?.id}</p>
-            <p>Username: {userData?.username}</p>
-            <p>Email: {userData?.email}</p>
-            <button onClick={logOut} className='outline outline-offset-2 outline-1 p-2 cursor-pointer'>Log Out</button>
+            <div className='container mx-auto my-8 text-center flex flex-col gap-7 items-center'>
+                <h1 className='underline text-2xl'>User Profile</h1>
+                <p>ID: {userData?.id}</p>
+                <p>Username: {userData?.username}</p>
+                <p>Email: {userData?.email}</p>
+                <button onClick={logOut} className='outline outline-offset-2 outline-1 p-2 cursor-pointer w-fit'>Log Out</button>
+            </div>
+
         </div>
     );
 };
