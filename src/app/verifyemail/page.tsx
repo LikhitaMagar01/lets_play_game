@@ -35,7 +35,8 @@ export default function VerifyEmailPage() {
                 <h1>{token ? `${token}` : 'no token'}</h1>
                 {verified && (
                     <div><h2 className="text-2xl">Email Verified</h2>
-                        <Link href="/sign-in">Login</Link>
+                        <Link href="/sign-in" 
+                        className="underline border-b border-blue text-blue text-lg font-bold border p-2 mt-2">Login</Link>
                     </div>
                 )}
                 {error && (
