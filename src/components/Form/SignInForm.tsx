@@ -84,7 +84,7 @@ const SignUpForm: React.FC = () => {
             </div>
           </form>
           <div className="text-grey-dark mt-6 mr-3">
-            Don't have an account? Don't Worry{' '}
+            Don&apos;t have an account? Don&apos;t Worry{' '}
             <Link className="ml-2 no-underline border-b border-blue text-blue" href="/sign-up">
               {loading ? 'Processing' : 'Sign Up'}
             </Link>
