@@ -12,8 +12,8 @@ type User = {
   score: number;
 };
 
-const HighestScores: React.FC<{ user: User }> = ({ user }) => {
-  const [users, setUsers] = useState<User[]>([user]); // Initialize as an array
+const HighestScores: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
